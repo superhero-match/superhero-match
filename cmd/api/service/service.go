@@ -14,9 +14,7 @@
 package service
 
 import (
-	"github.com/superhero-match/superhero-match/internal/cache"
 	"github.com/superhero-match/superhero-match/internal/config"
-	"github.com/superhero-match/superhero-match/internal/es"
 	"github.com/superhero-match/superhero-match/internal/producer"
 	"go.uber.org/zap"
 )
@@ -24,8 +22,6 @@ import (
 // Service holds all the different services that are used when handling request.
 type Service struct {
 	Producer   *producer.Producer
-	Cache      *cache.Cache
-	ES         *es.ES
 	Logger     *zap.Logger
 	TimeFormat string
 }
@@ -37,22 +33,10 @@ func NewService(cfg *config.Config) (*Service, error) {
 		return nil, err
 	}
 
-	e, err := es.NewES(cfg)
-	if err != nil {
-		return nil, err
-	}
-
-	ch, err := cache.NewCache(cfg)
-	if err != nil {
-		return nil, err
-	}
-
 	defer logger.Sync()
 
 	return &Service{
 		Producer:   producer.NewProducer(cfg),
-		Cache:      ch,
-		ES:         e,
 		Logger:     logger,
 		TimeFormat: cfg.App.TimeFormat,
 	}, nil

@@ -21,8 +21,6 @@ import (
 type Config struct {
 	App      *App
 	Producer *Producer
-	Cache    *Cache
-	ES       *ES
 }
 
 // NewConfig returns the configuration.
