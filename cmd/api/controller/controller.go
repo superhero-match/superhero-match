@@ -48,7 +48,6 @@ func (ctl *Controller) RegisterRoutes() *gin.Engine {
 
 	// Routes.
 	sr.POST("/store_match", ctl.StoreMatch)
-	sr.POST("/get_match", ctl.GetMatch)
 
 	return router
 }
