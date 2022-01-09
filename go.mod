@@ -3,10 +3,13 @@ module github.com/superhero-match/superhero-match
 go 1.14
 
 require (
-	github.com/gin-gonic/gin v1.5.0
-	github.com/go-redis/redis v6.15.7+incompatible
-	github.com/jinzhu/configor v1.1.1
-	github.com/olivere/elastic/v7 v7.0.12
-	github.com/segmentio/kafka-go v0.3.5
-	go.uber.org/zap v1.14.1
+	github.com/gin-gonic/gin v1.7.0
+	github.com/golang/protobuf v1.4.3 // indirect
+	github.com/google/go-cmp v0.5.6 // indirect
+	github.com/jinzhu/configor v1.2.0
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/segmentio/kafka-go v0.4.25
+	go.uber.org/zap v1.16.0
+	golang.org/x/net v0.0.0-20211209124913-491a49abca63 // indirect
+	google.golang.org/protobuf v1.25.0 // indirect
 )

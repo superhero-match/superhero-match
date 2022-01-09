@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2019 - 2021 MWSOFT
+  Copyright (C) 2019 - 2022 MWSOFT
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -23,16 +23,16 @@ import (
 	ctrl "github.com/superhero-match/superhero-match/cmd/api/model"
 )
 
-// StoreMatch publishes new match on Kafka for it to be save to DB.
+// StoreMatch publishes new match on Kafka for it to be saved to DB and cache.
 func (ctl *Controller) StoreMatch(c *gin.Context) {
 	var req ctrl.StoreRequest
 
 	err := c.BindJSON(&req)
 	if checkError(err, c) {
-		ctl.Service.Logger.Error(
+		ctl.Logger.Error(
 			"failed to bind JSON to value of type StoreRequest",
 			zap.String("err", err.Error()),
-			zap.String("time", time.Now().UTC().Format(ctl.Service.TimeFormat)),
+			zap.String("time", time.Now().UTC().Format(ctl.TimeFormat)),
 		)
 
 		return
@@ -42,13 +42,13 @@ func (ctl *Controller) StoreMatch(c *gin.Context) {
 		ID:                 req.MatchID,
 		SuperheroID:        req.SuperheroID,
 		MatchedSuperheroID: req.MatchedSuperheroID,
-		CreatedAt:          time.Now().UTC().Format(ctl.Service.TimeFormat),
+		CreatedAt:          time.Now().UTC().Format(ctl.TimeFormat),
 	})
 	if checkError(err, c) {
-		ctl.Service.Logger.Error(
-			"failed while executing service.HandleESRequest()",
+		ctl.Logger.Error(
+			"failed while executing service.StoreMatch()",
 			zap.String("err", err.Error()),
-			zap.String("time", time.Now().UTC().Format(ctl.Service.TimeFormat)),
+			zap.String("time", time.Now().UTC().Format(ctl.TimeFormat)),
 		)
 
 		return

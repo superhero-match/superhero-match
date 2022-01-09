@@ -1,16 +1,9 @@
 app:
   port: ':4200'
-  cert_file: './cmd/api/certificate.pem'
-  key_file: './cmd/api/key.pem'
   time_format: '2006-01-02T15:04:05'
 
 producer:
-  brokers: ['192.168.0.64:9092']
+  brokers: '192.168.1.229:9092'
   topic: 'store.match.match'
   batch_size: 1
   batch_timeout: 10
-
-health:
-  port: ':8180'
-  shutdown_endpoint: '/api/v1/superhero_match_health/shutdown'
-  content_type: 'application/json'
